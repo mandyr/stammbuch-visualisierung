@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico in the root directory-->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <div class="navbar">Navbar</div>
+
+        <div class="container">
+            <div class="row">
+                <div class="column">
+           <div class="box">
+               <div class="search-filter">
+               <form>
+                   <div class="row">
+                       <div class="column">
+                           <label>Name:</label>
+                       </div>
+                       <div class="column">
+                           <input type="text" placeholder="Name eingeben"
+                                  id="name" onkeyup="filterName()">
+                       </div>
+
+                   </div>
+
+                   <div class="row">
+                       <div class="column">
+                           <label>Zeitraum</label>
+                       </div>
+                       <div class="column">
+                           <input type="text" placeholder="Startdatum">
+                           <input type="text" placeholder="Enddatum">
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="column">
+                           <label>Ort:</label>
+                       </div>
+                       <div class="column">
+                           <select>
+                               <option>Leipzig</option>
+                               <option>Halle</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <button class="submit">Filter <i class="fas fa-filter"></i></button>
+                       <button class="reset">Zurücksetzen</button>
+                   </div>
+               </form>
+               </div>
+           </div>
+            </div>
+            </div>
+
+            <div class="column ">
+                <div class="box">
+                    <div class="vizContainer">
+                        Content
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Scipts -->
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,29 @@
+@import "variables";
+
+input, label, select {
+    margin: 2px;
+    padding: 5px;
+    width: 200px;
+}
+
+label {
+    width: 150px
+}
+
+select {
+
+}
+
+.submit, .reset {
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    width: 100%;
+
+    &:hover {
+        background-color: $primary;
+        border: 1px $primary solid;
+        color: #fff;
+    }
+}

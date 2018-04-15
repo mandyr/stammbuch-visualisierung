@@ -1,0 +1,62 @@
+input, label, select {
+  margin: 2px;
+  padding: 5px;
+  width: 200px; }
+
+label {
+  width: 150px; }
+
+.submit, .reset {
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px;
+  width: 100%; }
+  .submit:hover, .reset:hover {
+    background-color: #548687;
+    border: 1px #548687 solid;
+    color: #fff; }
+
+body {
+  font-size: 1em;
+  font-family: Verdana, Geneva, sans-serif;
+  background-color: #f9f9f9; }
+
+.row {
+  display: flex;
+  flex-direction: row; }
+
+.column {
+  display: flex;
+  flex-direction: column; }
+
+.search-filter {
+  flex: 1; }
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row; }
+
+.navbar {
+  margin-bottom: 2%;
+  background-color: #829399;
+  padding: 10px;
+  text-transform: uppercase;
+  justify-content: space-between; }
+
+.box {
+  margin-left: 2%;
+  background-color: white;
+  padding: 10px; }
+
+.vizContainer {
+  height: 400px;
+  width: 800px;
+  flex: 2; }
+
+button {
+  padding: 5px; }
+
+/*# sourceMappingURL=style.css.map */
