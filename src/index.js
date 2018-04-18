@@ -1,4 +1,4 @@
 import "./scss/style.scss";
-import { printHelloWorld } from "./js/helloWorld.js";
+import { handleNameSearch } from "./js/main.js";
 
-printHelloWorld();
+handleNameSearch();
