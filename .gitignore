@@ -3,4 +3,4 @@
 # Useful .gitignore templates: https://github.com/github/gitignore
 
 .DS_Store
-
+node_modules
