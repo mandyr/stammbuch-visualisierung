@@ -9,71 +9,81 @@
 
         <!-- Place favicon.ico in the root directory-->
 
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
+
     </head>
-    <body>
+    <body class="site">
         <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please
+            <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security .
+        </p>
         <![endif]-->
 
-        <div class="navbar">Navbar</div>
+        <div class="navbar">Visualisierung der Stammbücher der Anna Amalia Bibliothek</div>
 
         <div class="container">
             <div class="row">
                 <div class="column">
-           <div class="box">
-               <div class="search-filter">
-               <form>
-                   <div class="row">
-                       <div class="column">
-                           <label>Name:</label>
-                       </div>
-                       <div class="column">
-                           <input type="text" placeholder="Name eingeben"
-                                  id="name">
-                       </div>
+                   <div class="box">
+                       <div class="search-filter">
 
-                   </div>
+                           <form>
+                               <div class="row">
+                                   <div class="column">
+                                       <label>Name:</label>
+                                   </div>
+                                   <div class="column">
+                                       <input type="text" placeholder="Name eingeben"
+                                              id="name">
+                                   </div>
 
-                   <div class="row">
-                       <div class="column">
-                           <label>Zeitraum</label>
-                       </div>
-                       <div class="column">
-                           <input type="text" placeholder="Startdatum">
-                           <input type="text" placeholder="Enddatum">
-                       </div>
-                   </div>
+                               </div>
 
-                   <div class="row">
-                       <div class="column">
-                           <label>Ort:</label>
-                       </div>
-                       <div class="column">
-                           <select>
-                               <option>Leipzig</option>
-                               <option>Halle</option>
-                           </select>
-                       </div>
-                   </div>
+                               <div class="row">
+                                   <div class="column">
+                                       <label>Zeitraum</label>
+                                   </div>
+                                   <div class="column">
+                                       <input type="text" placeholder="Startdatum">
+                                       <input type="text" placeholder="Enddatum">
+                                   </div>
+                               </div>
 
-                   <div class="row">
-                       <button class="submit">Filter <i class="fas fa-filter"></i></button>
-                       <button class="reset">Zurücksetzen</button>
+                               <div class="row">
+                                   <div class="column">
+                                       <label>Ort:</label>
+                                   </div>
+                                   <div class="column">
+                                       <select id="cities">
+                                           <option>Leipzig</option>
+                                           <option>Halle</option>
+                                       </select>
+                                   </div>
+                               </div>
+
+                               <div class="row">
+                                   <button class="submit">Filter <i class="fas fa-filter"></i></button>
+                                   <button class="reset">Zurücksetzen</button>
+                               </div>
+                           </form>
+
+                       </div>
                    </div>
-               </form>
-               </div>
-           </div>
             </div>
             </div>
 
-            <div class="column ">
+            <div class="column">
                 <div class="box">
                     <div class="vizContainer">
-                        Content
+                        Visualisierung kommt dann hier hin
                     </div>
                 </div>
             </div>
 
+        </div>
+
+        <div class="footer">
+            Footer
         </div>
 
 

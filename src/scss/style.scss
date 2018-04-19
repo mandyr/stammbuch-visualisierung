@@ -1,10 +1,26 @@
 @import "variables";
 @import "form-elements";
+@import "normalize";
 
 body {
     font-size: 1em;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family:  'Open Sans', sans-serif;
     background-color: $light;
+    overflow: hidden;
+}
+
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
 }
 
 .row {
@@ -21,25 +37,28 @@ body {
     flex: 1;
 }
 
-.container {
-    max-width: 1500px;
-    margin: 0 auto;
+.footer {
     display: flex;
     flex-direction: row;
+    background-color: $secondary;
+    padding: $small;
 }
 
 .navbar {
-    margin-bottom: 2%;
-    background-color: $dark;
-    padding: 10px;
-    text-transform: uppercase;
+    margin-bottom: $normal;
+    background-color: $primary;
+    padding: $small;
+    padding-left: 50px;
     justify-content: space-between;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
 }
 
 .box {
-    margin-left: 2%;
+    margin-left: $normal;
     background-color: white;
     padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .vizContainer {
@@ -49,6 +68,6 @@ body {
 }
 
 button {
-    padding: 5px;
+    padding: $very-small;
 }
 
