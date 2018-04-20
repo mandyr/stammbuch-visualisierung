@@ -6,11 +6,35 @@ input, label, select {
     width: 200px;
 }
 
+input {
+    border: 0;
+    background-color: $light;
+    color: #000000;
+
+    &:focus {
+        outline: none;
+        background-color: $primary;
+        color: #000000;
+    }
+}
+
 label {
     width: 150px
 }
 
-select {
+.custom-select {
+
+    ul {
+        width: 200px;
+    }
+
+    li {
+        background-color: $primary;
+    }
+
+    input {
+        visibility: hidden;
+    }
 
 }
 
@@ -22,8 +46,8 @@ select {
     width: 100%;
 
     &:hover {
-        background-color: $primary;
-        border: 1px $primary solid;
+        background-color: $secondary;
+        border: 1px $secondary solid;
         color: #000;
     }
 }
