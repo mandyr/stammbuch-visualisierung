@@ -2,95 +2,102 @@ const fs = require("fs");
 const util = require("util");
 const readFile = util.promisify(fs.readFile);
 
-//Prints the header and first 5 lines of the data object
-function printHead(object) {
-  let outputString = "";
-  for (var key in object) {
-    outputString += key + "\t";
-  }
-  outputString += "\n";
+//Reads in a csv where the first row contains the keys
+//And all subsequent rows are values.
+//Creates an array of objects, where each object contains values
+//(and their keys) for that row.
+function csvToObject(csv) {
+    let data = [];
 
-  for (let i = 0; i < 5; i++) {
-    for (var key in object) outputString += object[key][i] + "\t";
+    //remove quotes from csv entries
+    csv = csv.replace(/\"/g, "");
 
-    outputString += "\n";
-  }
-
-  console.log(outputString);
+    let lines = csv.split("\n");
+    let header = lines[0].split("\t");
+    for (let i = 1; i < lines.length; i++) {
+        if (lines[i] !== "") {
+            let object = {};
+            let line = lines[i].split("\t");
+            for (let j = 0; j < header.length; j++) {
+                object[header[j]] = line[j];
+            }
+            data.push(object);
+        }
+    }
+    return data;
 }
 
-function csvToObject(csv) {
-  //remove quotes from csv entries and \r signs
-  let csvNoReturns = csv.replace(/\r/g, "");
-  let csvNoQuotes = csvNoReturns.replace(/\"/g, "");
-
-  let resultObject = {};
-  let lines = csvNoQuotes.split("\n");
-  let cells = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    //if statement makes sure there aren't any empty lines, at the end, z.B.
-    if (lines[i] !== "") {
-      let line = lines[i].split(",");
-      cells.push(line);
-    }
-  }
-
-  //Intialize resultObject with key and empty array.
-  for (let j = 0; j < cells[0].length; j++) {
-    resultObject[cells[0][j]] = [];
-  }
-
-  for (let k = 1; k < cells.length; k++) {
-    for (let j = 0; j < cells[0].length; j++) {
-      resultObject[cells[0][j]].push(cells[k][j]);
-    }
-  }
-  return resultObject;
+//auxilary to sort function.  Compares the PPN values.
+function comparePPN(entryA, entryB) {
+    const ppnA = entryA.PPN;
+    const ppnB = entryB.PPN;
+    if (ppnA < ppnB) return -1;
+    else if (ppnA > ppnB) return 1;
+    return 0;
 }
 
 async function main() {
-  let nodeData = await readFile(process.argv[2], "utf8");
-  let nodes = csvToObject(nodeData);
+    let stammbuchDaten = await readFile(process.argv[2], "utf8");
+    let stammbücher = csvToObject(stammbuchDaten);
 
-  let linkData = await readFile(process.argv[3], "utf8");
-  let links = csvToObject(linkData);
+    //make clean GND field for each Stammbuch
+    stammbücher.forEach(stammbuch => {
+        const gndMatch = stammbuch.Verfasser.match(/(?<=gnd\/).*/);
+        stammbuch.GND = gndMatch != null ? gndMatch[0] : "";
+    });
 
-  let jsonData = {
-    nodes: [],
-    links: []
-  };
+    stammbücher.sort(comparePPN);
+    //Print first 4 entries;
+    for (let i = 0; i < 4; i++) console.log(stammbücher[i]);
 
-  let nodesForJSON = [];
-  let nodeKey = Object.keys(nodes)[0];
-  for (let k = 0; k < nodes[nodeKey].length; k++) {
-    nodesForJSON.push({ id: nodes[nodeKey][k] });
-  }
+    let eintragDaten = await readFile(process.argv[3], "utf8");
+    let einträge = csvToObject(eintragDaten);
 
-  jsonData.nodes = nodesForJSON;
+    //make clean GND field for each eintrag
+    einträge.forEach(eintrag => {
+        const s = eintrag.Einträger_GND;
+        var n = s.indexOf("$");
+        eintrag.GND = s.substring(0, n != -1 ? n : s.length);
+    });
 
-  let linksForJSON = [];
-  let linkKey1 = Object.keys(links)[0];
-  let linkKey2 = Object.keys(links)[1];
+    // Print first 4 entries;
+    for (let i = 0; i < 4; i++) console.log(einträge[i]);
 
-  for (let k = 0; k < links[linkKey1].length; k++) {
-    let link = {
-      source: links[linkKey1][k],
-      target: links[linkKey2][k]
-    };
-
-    linksForJSON.push(link);
-  }
-
-  jsonData.links = linksForJSON;
-
-  const output = JSON.stringify(jsonData);
-
-  fs.writeFile("../stammbuch.json", output, function(err) {
-    if (err) return console.log(err);
-
-    console.log("JSON file has been created.");
-  });
+    // let jsonData = {
+    //     nodes: [],
+    //     links: []
+    // };
+    //
+    // let nodesForJSON = [];
+    // let nodeKey = Object.keys(nodes)[0];
+    // for (let k = 0; k < nodes[nodeKey].length; k++) {
+    //     nodesForJSON.push({ id: nodes[nodeKey][k] });
+    // }
+    //
+    // jsonData.nodes = nodesForJSON;
+    //
+    // let linksForJSON = [];
+    // let linkKey1 = Object.keys(links)[0];
+    // let linkKey2 = Object.keys(links)[1];
+    //
+    // for (let k = 0; k < links[linkKey1].length; k++) {
+    //     let link = {
+    //         source: links[linkKey1][k],
+    //         target: links[linkKey2][k]
+    //     };
+    //
+    //     linksForJSON.push(link);
+    // }
+    //
+    // jsonData.links = linksForJSON;
+    //
+    // const output = JSON.stringify(jsonData);
+    //
+    // fs.writeFile("../stammbuch.json", output, function(err) {
+    //     if (err) return console.log(err);
+    //
+    //     console.log("JSON file has been created.");
+    // });
 }
 
 main();
