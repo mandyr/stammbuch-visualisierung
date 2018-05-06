@@ -27,6 +27,19 @@ function csvToObject(csv) {
     return data;
 }
 
+//make sure field contains has no empty spaces
+function checkForEmptySpace(entry) {
+    if (entry != null) {
+        if (entry.indexOf(" ") != -1)
+            console.log(
+                "Warning: empty space in entry:",
+                entry,
+                " at ",
+                entry.indexOf(" ")
+            );
+    }
+}
+
 //auxilary to sort function.  Compares the PPN values.
 function comparePPN(entryA, entryB) {
     const ppnA = entryA.PPN;
@@ -34,6 +47,26 @@ function comparePPN(entryA, entryB) {
     if (ppnA < ppnB) return -1;
     else if (ppnA > ppnB) return 1;
     return 0;
+}
+
+//
+function returnUnqiueGNDs(einträge, stammbücher) {
+    let allGNDs = [];
+    einträge.forEach(eintrag => {
+        if (eintrag.GND != "") allGNDs.push(eintrag.GND);
+    });
+    stammbücher.forEach(stammbuch => {
+        if (stammbuch.GND != "") allGNDs.push(stammbuch.GND);
+    });
+    // console.log("All GNDs total: ", allGNDs.length);
+    // let empties = allGNDs.filter(entry => entry == "");
+    // console.log("Empty GNDs: ", empties.length);
+    allGNDs.sort();
+    var allUniqueGNDs = [];
+    allGNDs.forEach((gnd, index, allGNDs) => {
+        if (gnd != allGNDs[index - 1]) allUniqueGNDs.push({ id: gnd });
+    });
+    return allUniqueGNDs;
 }
 
 async function main() {
@@ -46,7 +79,8 @@ async function main() {
         stammbuch.GND = gndMatch != null ? gndMatch[0] : "";
     });
 
-    stammbücher.sort(comparePPN);
+    //sort is not necessarilly needed, since findIndex doesn't sort
+    // stammbücher.sort(comparePPN);
     //Print first 4 entries;
     for (let i = 0; i < 4; i++) console.log(stammbücher[i]);
 
@@ -58,46 +92,37 @@ async function main() {
         const s = eintrag.Einträger_GND;
         var n = s.indexOf("$");
         eintrag.GND = s.substring(0, n != -1 ? n : s.length);
+        eintrag.Stammbuch_PPN = eintrag.Stammbuch_PPN.replace(/\s/g, "");
+        // checkForEmptySpace(eintrag.Stammbuch_PPN);
     });
 
     // Print first 4 entries;
     for (let i = 0; i < 4; i++) console.log(einträge[i]);
 
-    // let jsonData = {
-    //     nodes: [],
-    //     links: []
-    // };
-    //
-    // let nodesForJSON = [];
-    // let nodeKey = Object.keys(nodes)[0];
-    // for (let k = 0; k < nodes[nodeKey].length; k++) {
-    //     nodesForJSON.push({ id: nodes[nodeKey][k] });
-    // }
-    //
-    // jsonData.nodes = nodesForJSON;
-    //
-    // let linksForJSON = [];
-    // let linkKey1 = Object.keys(links)[0];
-    // let linkKey2 = Object.keys(links)[1];
-    //
-    // for (let k = 0; k < links[linkKey1].length; k++) {
-    //     let link = {
-    //         source: links[linkKey1][k],
-    //         target: links[linkKey2][k]
-    //     };
-    //
-    //     linksForJSON.push(link);
-    // }
-    //
-    // jsonData.links = linksForJSON;
-    //
-    // const output = JSON.stringify(jsonData);
-    //
-    // fs.writeFile("../stammbuch.json", output, function(err) {
-    //     if (err) return console.log(err);
-    //
-    //     console.log("JSON file has been created.");
-    // });
+    //make unique list of all GNDs
+    const nodes = returnUnqiueGNDs(einträge, stammbücher);
+    // console.log("Unique GNDs: ", nodes.length);
+
+    let links = [];
+    einträge.forEach(eintrag => {
+        const source = eintrag.GND;
+        const indexOfSB = stammbücher.findIndex(
+            sb => sb.PPN === eintrag.Stammbuch_PPN
+        );
+        const target = stammbücher[indexOfSB].GND;
+        if (target != "") links.push({ source, target });
+    });
+
+    for (let i = 0; i < 5; i++) {
+        console.log(nodes[i]);
+        console.log(links[i]);
+    }
+    const jsonData = { nodes, links };
+    const output = JSON.stringify(jsonData);
+    fs.writeFile("../stammbuch.json", output, function(err) {
+        if (err) return console.log(err);
+        console.log("JSON file has been created.");
+    });
 }
 
 main();
