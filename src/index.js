@@ -1,4 +1,6 @@
 import "./scss/style.scss";
-import { handleNameSearch } from "./js/main.js";
+// import { handleNameSearch } from "./js/main.js";
+import { visualizeNetwork } from "./daten/simpleNetWork.js";
 
-handleNameSearch();
+console.log("This is the index file!");
+visualizeNetwork();

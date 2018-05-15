@@ -3,9 +3,13 @@
     "version": "1.0.0",
     "description": "Visualisierung der Stammbücher der Anna Amalia Bibliothek",
     "private": true,
-    "dependencies": {},
+    "dependencies": {
+        "d3": "^5.4.0"
+    },
     "devDependencies": {
+        "concurrently": "^3.5.1",
         "css-loader": "^0.28.11",
+        "http-server": "^0.11.1",
         "node-sass": "^4.8.3",
         "sass-loader": "^7.0.1",
         "style-loader": "^0.20.3",
@@ -15,7 +19,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "webpack --watch",
-        "build": "webpack"
+        "build": "webpack",
+        "dev": "concurrently \"http-server \" \"npm run watch\""
     },
     "repository": {
         "type": "git",
