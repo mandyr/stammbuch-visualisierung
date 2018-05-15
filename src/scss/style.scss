@@ -1,5 +1,6 @@
 @import "variables";
 @import "form-elements";
+@import "network-viz-elements";
 
 body {
     font-size: 1em;
@@ -26,6 +27,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap-reverse;
 }
 
 .navbar {
@@ -51,4 +53,3 @@ body {
 button {
     padding: 5px;
 }
-
