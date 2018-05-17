@@ -13,7 +13,7 @@ function visualizeNetwork() {
 
     var simulation = d3
         .forceSimulation()
-        .force("charge", d3.forceManyBody().strength(-0.5))
+        .force("charge", d3.forceManyBody().strength(-0.05))
         .force("center", d3.forceCenter(width / 2, height / 2))
         .force(
             "link",
@@ -22,7 +22,7 @@ function visualizeNetwork() {
                 .id(function(d) {
                     return d.id;
                 })
-                .distance(0.1)
+                .distance(0.01)
         );
 
     var link = svg
@@ -38,7 +38,7 @@ function visualizeNetwork() {
         .data(graph.nodes)
         .enter()
         .append("circle")
-        .attr("r", 5);
+        .attr("r", 1);
 
     simulation.nodes(graph.nodes).on("tick", ticked);
 
