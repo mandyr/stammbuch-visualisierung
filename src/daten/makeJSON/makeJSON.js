@@ -1,3 +1,8 @@
+//This file writes to "../graphData.js" a javascript file that exports a
+//javascript object.
+// To run the file on your computer type: "node makeJSON.js stammbücher.csv einträge.csv"
+//Note that the program is slow.  It has not been programmed to run efficiently.
+
 const fs = require("fs");
 const util = require("util");
 const readFile = util.promisify(fs.readFile);

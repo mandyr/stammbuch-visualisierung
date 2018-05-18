@@ -1,3 +1,6 @@
+//an example of how data needs to be sent to the files that makes the visualization.
+//Note that this is a made-up network - I just needed some sample data.
+
 export const graph = {
     nodes: [
         { id: "100154042" },
